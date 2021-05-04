@@ -1,0 +1,12 @@
+
+# python
+venv/
+__pycache__/
+__init__.py
+
+# node
+node_modules/
+dist/
+
+# mysql
+mysql_store/

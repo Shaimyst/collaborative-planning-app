@@ -1,0 +1,49 @@
+
+X planning:
+	X define entities
+	X map out entity relationships
+	X tech-spec services base on functional requirements
+X choose technologies
+X POC containerization
+X POC backend serving of index and JSON endpoint
+X POC BE->client socket communication
+X draft data schemas
+X get docker compose working for MySQL
+X POC Python->MySQL communication
+X create data tables
+X stub API layer
+X stub data and service classes
+X POC CRUD
+X update vote schema to be unique compound key: user_uuid4, task_uuid4
+X implement BE:
+	X user
+	X task
+	X vote
+	X vote_variant
+X write API test script
+X add base dockerfile with OS installs
+X get Vue.js working
+X implement client:
+	X POC routing
+	X POC API calls
+	X POC socket calls
+	X stub parts
+	X implement:
+		X nav
+		X home
+		X user-create
+		X user-select 
+		X tasks
+		X task
+X polish:
+	X convert relevant endpoints to POSTs and sockets
+	X highlight user-selected vote
+	X ensure user-selection behaviour for voting
+	X any remaining styling
+X document:
+	X method docstrings
+	X README finalization
+X test:
+	X fresh repo clone and run-through
+
+

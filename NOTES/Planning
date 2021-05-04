@@ -1,0 +1,83 @@
+
+
+ENTITIES
+
+user
+	- can be created
+	- can be selected during login
+	- can create tasks
+	- can cast 1 vote per task
+	- can update task vote
+
+task
+	- can have many associated votes
+
+vote
+	- has single associated user
+	- has single associated task
+
+vote_variant
+	- standard list of variants
+
+
+================================================================================
+
+
+RELATIONSHIPS SUMMARY
+
+users are connected to tasks by a single vote
+
+
+================================================================================
+
+
+---ARCHITECTURE---
+
+
+DATA/SERVICE CLASSES
+
+User {
+	create(userName)
+	loadAll()
+}
+
+Task {
+	create(taskName)
+	loadAll()
+}
+
+Vote {
+	create()
+	loadOneByUserAndTask(userId, taskId)
+	loadAllByTask(taskId)
+	updateByUserAndTask(userId, taskId)
+}
+
+VoteVariant {
+	loadAll()
+}
+
+
+================================================================================
+
+
+API
+
+// user
+create-user(user_name)
+get-all-users()
+
+// task
+create-task(task_title)
+get-all-tasks-simple-metadata()
+get-task-by-id(task_id)
+
+// vote
+create-or-update-vote(user_id, task_id, vote_variant)
+get-all-votes-by-task(task_id)
+
+// vote_variant
+get-available-vote-variants()
+
+
+
