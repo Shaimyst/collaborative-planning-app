@@ -23,6 +23,9 @@ def test_create_user(): # create new user
     submit_button = driver.find_element_by_id("user-name-submit")
     submit_button.click()
 
+    # close browser
+    driver.quit()
+
 # def select_user():
 
 # def test_user_name_taken(): # duplicate user name, check error code shows

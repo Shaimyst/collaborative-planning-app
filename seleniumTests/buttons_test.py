@@ -10,23 +10,36 @@ driver.get("http://localhost/")
 
 # begin test
 
-def test_links():
+def test_home_link():
     home = driver.find_element_by_link_text("Home")
     home.click()
-    print(driver.current_url)
 
     driver.implicitly_wait(10)
+    print("Current home url: " + driver.current_url)
     
+    assert driver.current_url == "http://localhost/#/", "not home"
+
+def test_tasks_link():
     tasks = driver.find_element_by_link_text("Tasks")
     tasks.click()
-    print(driver.current_url)
 
     driver.implicitly_wait(10)
 
+    print("Current tasks url: " + driver.current_url)
+    
+    assert driver.current_url == "http://localhost/#/tasks", "wrong page"
+
+def test_select_user():
+    home = driver.find_element_by_link_text("Home")
     home.click()
     select_user = driver.find_element_by_link_text("select user")
     select_user.click()
-    print(driver.current_url)
+
+    driver.implicitly_wait(10)
+
+    print("Current select user url: " + driver.current_url)
+    
+    assert driver.current_url == "http://localhost/#/user-select", "wrong page"
 
 def test_find_elements():
     # count the elements on a page
@@ -37,3 +50,5 @@ def test_find_elements():
     for ii in ids:
         #print ii.tag_name
         print(ii.get_attribute('id'))    # id name as string
+        #print(dir(ii))
+    
