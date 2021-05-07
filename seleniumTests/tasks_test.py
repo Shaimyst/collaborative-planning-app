@@ -28,3 +28,5 @@ def test_create_task():
 
     # close browser
     driver.quit()
+
+# def test_duplicate_tasks(): # does app allow duplicate tasks to be created
