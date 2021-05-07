@@ -19,7 +19,7 @@ def test_create_task():
     tasks.click()
 
     task_search = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-    task_search.send_keys("new task")
+    task_search.send_keys("new task001")
 
     driver.implicitly_wait(5)
 

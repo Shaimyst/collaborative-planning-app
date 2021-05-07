@@ -18,34 +18,25 @@ def test_create_user(): # create new user
     driver.implicitly_wait(10)
 
     name_box = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-    name_box.send_keys("new user")
+    name_box.send_keys("profile002")
 
     submit_button = driver.find_element_by_id("user-name-submit")
     submit_button.click()
 
-    driver.quit()
-
 # def select_user():
 
-# def test_user_name_taken():
+# def test_user_name_taken(): # duplicate user name, check error code shows
 #     driver.get("http://localhost/#/user-create")
 
 #     name_box = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-#     name_box.send_keys("test")
+#     name_box.send_keys("duplicate")
 #     driver.implicitly_wait(5)
-
 #     submit_button = driver.find_element_by_id("user-name-submit")
 #     submit_button.click()
 #     driver.implicitly_wait(5)
 
-#     error = driver.find_element_by_class_name("submission-error")
-
-#     if error.is_displayed():
-#         print("error message displayed")
-#     else:
-#         print("error message not displayed")
+#     sub_error = driver.find_element_by_class_name("submission-error")
+    
+#     assert sub_error.is_displayed(), "error message not displayed"
 
 #     driver.quit()
-
-#     # assert an error message comes up
-#     assert error.is_displayed(), "No error message"

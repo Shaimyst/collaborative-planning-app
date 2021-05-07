@@ -9,27 +9,31 @@ driver = webdriver.Chrome(chromedriver)
 driver.get("http://localhost/")
 
 # begin test
-def test_all_buttons():
-
-    tags = driver.find_elements_by_tag_name('button')
-
-    count = 0
-
-    for t in tags:
-        t.click()
-        count += 1 # variable will increment every loop iteration of your code
-        tagname = t.tag_name
-
-    print(dir())
 
 def test_links():
     home = driver.find_element_by_link_text("Home")
     home.click()
+    print(driver.current_url)
 
     driver.implicitly_wait(10)
     
     tasks = driver.find_element_by_link_text("Tasks")
     tasks.click()
+    print(driver.current_url)
 
-    # close browser
-    driver.quit()
+    driver.implicitly_wait(10)
+
+    home.click()
+    select_user = driver.find_element_by_link_text("select user")
+    select_user.click()
+    print(driver.current_url)
+
+def test_find_elements():
+    # count the elements on a page
+    home = driver.find_element_by_link_text("Home")
+    home.click()
+
+    ids = driver.find_elements_by_xpath('//*[@id]')
+    for ii in ids:
+        #print ii.tag_name
+        print(ii.get_attribute('id'))    # id name as string
