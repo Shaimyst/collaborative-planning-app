@@ -28,14 +28,28 @@ def test_create_task():
 
 # def test_duplicate_tasks(): # does app allow duplicate tasks to be created
 
-def test_task_list(): # get list of created tasks
+def test_count_tasks(): # counts how many tasks have been created
     items = driver.find_elements_by_tag_name("li")
     count = 0
 
     for item in items:
         text = item.text
         count += 1
+        # dupes...
 
-    print(count)
+    print("There are " + str(count) + " tasks.")
+
+    # https://stackoverflow.com/questions/9835762/how-do-i-find-the-duplicates-in-a-list-and-create-another-list-with-them
+    # finds dupes in list
+    # seen = {}
+    # dupes = []
+    #     for x in a:
+    #         if x not in seen:
+    #             seen[x] = 1
+    #     else:
+    #         if seen[x] == 1:
+    #             dupes.append(x)
+    #             seen[x] += 1
+
     # close browser
     driver.quit()
