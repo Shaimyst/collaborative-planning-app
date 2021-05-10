@@ -18,7 +18,7 @@ def test_create_user(): # create new user
     driver.implicitly_wait(10)
 
     name_box = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-    name_box.send_keys("profile002")
+    name_box.send_keys("profile003")
 
     submit_button = driver.find_element_by_id("user-name-submit")
     submit_button.click()
