@@ -94,3 +94,6 @@ def test_find_links(): # lists all links on home and tasks page
     print("Home and Tasks page links found: " + str(count))
 
     assert count == 6, "wrong number of links"
+
+    # close browser
+    driver.quit()

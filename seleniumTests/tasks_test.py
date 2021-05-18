@@ -1,6 +1,7 @@
 import os
 from selenium import webdriver
 import time
+import datetime
 
 # open browser
 chromedriver = "/usr/local/bin/chromedriver"
@@ -19,7 +20,10 @@ def test_create_task():
     tasks.click()
 
     task_search = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-    task_search.send_keys("new task002")
+
+    date_stamp = str(datetime.datetime.now()).split('.')[0]
+    file_name = "task " + date_stamp
+    task_search.send_keys(file_name)
 
     driver.implicitly_wait(5)
 
