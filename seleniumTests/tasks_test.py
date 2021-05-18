@@ -3,6 +3,7 @@ from selenium import webdriver
 import time
 import datetime
 import collections
+from collections import Counter
 
 # open browser
 chromedriver = "/usr/local/bin/chromedriver"
@@ -45,24 +46,22 @@ def test_count_tasks(): # counts how many tasks have been created
 def test_list(): # works, but prints a lot of web element stuff, comment out for now.
     a = driver.find_elements_by_tag_name("li")
     task_names = [x.text for x in a]
-    print(task_names) # prints all task names
+
+    # print(task_names) # prints all task names
 
     # no_dupes = [x for n, x in enumerate(a) if x not in a[:n]]
-    # print(no_dupes) # [[1], [2], [3], [5]]
+    # print(no_dupes)
 
-    # dupes = [x.text for n, x in enumerate(a) if x in a[:n]]
-    # print(dupes) # [[1], [3]]
+    # dupes = [x for n, x in enumerate(a) if x in a[:n]]
+    # print(dupes)
 
 
-# def test_list_2():
-#     items = driver.find_elements_by_tag_name("li")
-#     count = 0
+def test_list_2(): # UNFINISHED, it shows the counts of all task names, but we only want them printed if shown more than once.
+    a = driver.find_elements_by_tag_name("li")
+    task_names = [x.text for x in a]
 
-#     for item in items:
-#         text = item.text
-#         count += 1
-
-#     print(text)
+    c = Counter(task_names) 
+    print(c)
 
     # close browser
     driver.quit()
