@@ -4,6 +4,7 @@ import time
 import datetime
 import collections
 from collections import Counter
+import pytest
 
 # open browser
 chromedriver = "/usr/local/bin/chromedriver"
@@ -16,6 +17,10 @@ def test_goto_taskspage(): # go to task page
     tasks = driver.find_element_by_link_text("Tasks")
     tasks.click()
     driver.implicitly_wait(10)
+    tasksURL = "http://localhost/#/tasks"
+    currentURL = driver.current_url
+    
+    assert tasksURL == currentURL, "URLS don't match."
 
 def test_create_task(): # create new task with unique name
     tasks = driver.find_element_by_link_text("Tasks")
@@ -46,22 +51,30 @@ def test_count_tasks(): # counts how many tasks have been created
 def test_list(): # works, but prints a lot of web element stuff, comment out for now.
     a = driver.find_elements_by_tag_name("li")
     task_names = [x.text for x in a]
-
+    
     # print(task_names) # prints all task names
 
-    # no_dupes = [x for n, x in enumerate(a) if x not in a[:n]]
-    # print(no_dupes)
+def test_list_2(): # UNFINISHED, it shows the counts of all task names, but we only want them printed if shown more than
 
-    # dupes = [x for n, x in enumerate(a) if x in a[:n]]
-    # print(dupes)
+    # attempt to create two tasks with the same name
+    # check if two tasks exist with that name
+    # assert only one exists
 
-
-def test_list_2(): # UNFINISHED, it shows the counts of all task names, but we only want them printed if shown more than once.
     a = driver.find_elements_by_tag_name("li")
     task_names = [x.text for x in a]
 
-    c = Counter(task_names) 
-    print(c)
+    task_name_to_count = {}
+    dupe_exists = False
+    for tn in task_names:
+        if tn in task_name_to_count:
+            # THERE IS AT LEAST ONE DUPE
+            dupe_exists = True
+            task_name_to_count[tn] = task_name_to_count[tn] + 1
+        else: 
+            task_name_to_count[tn] = 1
+    # print(task_name_to_count)
 
-    # close browser
+    # quit browser
     driver.quit()
+
+    assert dupe_exists == False, "Duplicate task names exist."
