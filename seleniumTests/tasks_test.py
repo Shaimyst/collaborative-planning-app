@@ -14,8 +14,8 @@ driver.get("http://localhost/")
 
 # begin test
 def test_goto_taskspage(): # go to task page
-    tasks = driver.find_element_by_link_text("Tasks")
-    tasks.click()
+    tasks_link = driver.find_element_by_link_text("Tasks")
+    tasks_link.click()
     driver.implicitly_wait(10)
     tasksURL = "http://localhost/#/tasks"
     currentURL = driver.current_url
@@ -23,19 +23,35 @@ def test_goto_taskspage(): # go to task page
     assert tasksURL == currentURL, "URLS don't match."
 
 def test_create_task(): # create new task with unique name
-    tasks = driver.find_element_by_link_text("Tasks")
-    tasks.click()
+    # go to tasks page
+    tasks_link = driver.find_element_by_link_text("Tasks")
+    tasks_link.click()
+    driver.implicitly_wait(5)
 
-    task_search = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-
+    # unique name generator
     date_stamp = str(datetime.datetime.now()).split('.')[0]
-    file_name = "task " + date_stamp
-    task_search.send_keys(file_name)
+    unique_task_name = "task " + date_stamp
+
+    # submit new task name
+    task_input_field = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
+    task_input_field.send_keys(unique_task_name)
+    submit_button = driver.find_element_by_id("task-title-submit")
+    submit_button.click()
+
+    driver.implicitly_wait(5)
+    
+    # get task list
+    tasks_list = driver.find_elements_by_tag_name("li")
+    task_names = [x.text for x in tasks_list]
 
     driver.implicitly_wait(5)
 
-    submit_button = driver.find_element_by_id("task-title-submit")
-    submit_button.click()
+    print("Unique task name: " + unique_task_name)
+    print(task_names)
+    
+    # current assertion is failing. new inique name isn't showing 
+    # assert unique_task_name in task_names, "New task wasn't created."
+
 
 def test_count_tasks(): # counts how many tasks have been created
     items = driver.find_elements_by_tag_name("li")
@@ -44,35 +60,34 @@ def test_count_tasks(): # counts how many tasks have been created
     for item in items:
         text = item.text
         count += 1
-        # dupes...
 
     print("There are " + str(count) + " tasks.")
 
-def test_list(): # works, but prints a lot of web element stuff, comment out for now.
-    a = driver.find_elements_by_tag_name("li")
-    task_names = [x.text for x in a]
+def test_list(): # can print all task names
+    tasks_list = driver.find_elements_by_tag_name("li")
+    task_names = [x.text for x in tasks_list]
     
     # print(task_names) # prints all task names
 
-def test_list_2(): # UNFINISHED, it shows the counts of all task names, but we only want them printed if shown more than
+def test_list_2(): # assert if dupes exist
 
     # attempt to create two tasks with the same name
     # check if two tasks exist with that name
     # assert only one exists
 
-    a = driver.find_elements_by_tag_name("li")
-    task_names = [x.text for x in a]
+    tasks_list = driver.find_elements_by_tag_name("li")
+    task_names = [x.text for x in tasks_list]
 
-    task_name_to_count = {}
+    tasks_count = {}
     dupe_exists = False
     for tn in task_names:
-        if tn in task_name_to_count:
+        if tn in tasks_count:
             # THERE IS AT LEAST ONE DUPE
             dupe_exists = True
-            task_name_to_count[tn] = task_name_to_count[tn] + 1
+            tasks_count[tn] = tasks_count[tn] + 1
         else: 
-            task_name_to_count[tn] = 1
-    # print(task_name_to_count)
+            tasks_count[tn] = 1
+    # print(tasks_count)
 
     # quit browser
     driver.quit()

@@ -11,8 +11,8 @@ driver.get("http://localhost/")
 # begin test
 
 def test_home_link():
-    home = driver.find_element_by_link_text("Home")
-    home.click()
+    home_link = driver.find_element_by_link_text("Home")
+    home_link.click()
 
     driver.implicitly_wait(10)
     print("Current home url: " + driver.current_url)
@@ -20,8 +20,8 @@ def test_home_link():
     assert driver.current_url == "http://localhost/#/", "not home"
 
 def test_tasks_link():
-    tasks = driver.find_element_by_link_text("Tasks")
-    tasks.click()
+    tasks_link = driver.find_element_by_link_text("Tasks")
+    tasks_link.click()
 
     driver.implicitly_wait(10)
 
@@ -30,10 +30,10 @@ def test_tasks_link():
     assert driver.current_url == "http://localhost/#/tasks", "wrong page"
 
 def test_select_user():
-    home = driver.find_element_by_link_text("Home")
-    home.click()
-    select_user = driver.find_element_by_link_text("select user")
-    select_user.click()
+    home_link = driver.find_element_by_link_text("Home")
+    home_link.click()
+    select_user_link = driver.find_element_by_link_text("select user")
+    select_user_link.click()
 
     driver.implicitly_wait(10)
 
@@ -42,10 +42,10 @@ def test_select_user():
     assert driver.current_url == "http://localhost/#/user-select", "wrong page"
 
 def test_create_user():
-    home = driver.find_element_by_link_text("Home")
-    home.click()
-    select_user = driver.find_element_by_link_text("create user")
-    select_user.click()
+    home_link = driver.find_element_by_link_text("Home")
+    home_link.click()
+    select_user_link = driver.find_element_by_link_text("create user")
+    select_user_link.click()
 
     driver.implicitly_wait(10)
 
@@ -54,15 +54,14 @@ def test_create_user():
     assert driver.current_url == "http://localhost/#/user-create", "wrong page"
 
 def test_find_elements(): # count the elements on a page
-    home = driver.find_element_by_link_text("Home")
-    home.click()
+    home_link = driver.find_element_by_link_text("Home")
+    home_link.click()
 
     count = 0
 
     ids = driver.find_elements_by_xpath('//*[@id]')
     for ii in ids:
-        print("tag name: " + ii.tag_name)
-        print("called: " + ii.get_attribute('id'))    # id name as string
+        print("Element found: Tag name - " + ii.tag_name + ". Id attribute - " + ii.get_attribute('id'))
         count += 1 # variable will increment every loop iteration of your code
 
     print("Elements found: " + str(count))
@@ -71,23 +70,23 @@ def test_find_elements(): # count the elements on a page
         #print(dir(ii))
 
 def test_find_links(): # lists all links on home and tasks page
-    home = driver.find_element_by_link_text("Home")
-    home.click()
+    home_link = driver.find_element_by_link_text("Home")
+    home_link.click()
     
     count = 0
 
-    elems = driver.find_elements_by_xpath("//a[@href]")
-    for elem in elems:
+    elements = driver.find_elements_by_xpath("//a[@href]")
+    for elem in elements:
         print("Home page links: " + elem.get_attribute("href"))
         count += 1 # every loop will add one count
     
     # print("Home page links found: " + str(count))
 
-    tasks = driver.find_element_by_link_text("Tasks")
-    tasks.click()
+    tasks_link = driver.find_element_by_link_text("Tasks")
+    tasks_link.click()
 
-    elems = driver.find_elements_by_xpath("//a[@href]")
-    for elem in elems:
+    elements = driver.find_elements_by_xpath("//a[@href]")
+    for elem in elements:
         print("Task page links: " + elem.get_attribute("href"))
         count += 1 # every loop will add one count
 
