@@ -5,7 +5,7 @@
 Prototype app for collaborative assessment of task complexity
 
 
-### Requirements
+## Requirements
 - Docker
 - Docker Compose
 - homebrew
@@ -38,20 +38,15 @@ Prototype app for collaborative assessment of task complexity
 ---
 
 
-## Initial Setup
+### Initial Setup
 
-### npm installs
-```sh
-npm install
-```
-
-### Install chromedriver
+#### Install chromedriver
 
 ```sh
 brew cask install chromedriver
 ```
 
-### Python installs with pipenv
+#### Python installs with pipenv
 
 setup pipenv virtual-environment for project:    
 ```sh
@@ -96,7 +91,7 @@ Other dev commands are available in the Makefile.
 ---
 
 
-## Run Selenium tests
+### Run Selenium tests
 
 ```sh
 pytest
