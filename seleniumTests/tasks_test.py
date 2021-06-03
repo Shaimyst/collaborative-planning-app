@@ -82,7 +82,7 @@ def test_list_2(): # assert if dupes exist
     dupe_exists = False
     for tn in task_names:
         if tn in tasks_count:
-            # THERE IS AT LEAST ONE DUPE
+            # THERE IS A DUPE
             dupe_exists = True
             tasks_count[tn] = tasks_count[tn] + 1
         else: 
