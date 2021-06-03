@@ -2,12 +2,12 @@
 
 # collaborative-planning-app
 
-Prototype app for collaborative assessment of task complexity
 
-
-### Requirements
+## Requirements
 - Docker
 - Docker Compose
+- homebrew
+- pipenv
 
 
 ---
@@ -36,6 +36,35 @@ Prototype app for collaborative assessment of task complexity
 ---
 
 
+### Initial Setup
+
+#### Install chromedriver
+
+```sh
+brew cask install chromedriver
+```
+
+#### Python installs with pipenv
+
+setup pipenv virtual-environment for project:    
+```sh
+pipenv install
+```
+
+spin-up virtual-environment:
+```sh
+pipenv shell
+```
+
+spin-down the virtual-environment:
+```sh
+exit
+```
+
+
+---
+
+
 ### Initial Setup for Running the Application Locally
 
 1. run `make setup` to build the "base" and "app" images
@@ -56,3 +85,12 @@ Prototype app for collaborative assessment of task complexity
 
 Other dev commands are available in the Makefile.
 
+
+---
+
+
+### Run Selenium tests
+
+```sh
+pytest
+```
