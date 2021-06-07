@@ -1,11 +1,10 @@
 import os
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 # open browser
-chromedriver = "/usr/local/bin/chromedriver"
-os.environ["webdriver.chrome.driver"] = chromedriver
-driver = webdriver.Chrome(chromedriver)
+driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("http://localhost/")
 
 # begin test
