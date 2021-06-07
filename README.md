@@ -38,11 +38,6 @@
 
 ### Initial Setup
 
-#### Install chromedriver
-
-```sh
-brew cask install chromedriver
-```
 
 #### Python installs with pipenv
 
