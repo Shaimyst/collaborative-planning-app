@@ -1,6 +1,9 @@
 import os
+from sys import modules
+from typing import ByteString
 from selenium import webdriver
 import time
+import pytest
 
 # begin test
 
@@ -70,7 +73,8 @@ class TestLinks:
         print("Elements found: " + str(count))
         assert count == 1, "elements count has changed"
 
-            #print(dir(ii))
+        print(dir(ii))
+        
 
     def test_find_links(self): # lists all links on home and tasks page
         home_link = self.driver.find_element_by_link_text("Home")
@@ -101,3 +105,4 @@ class TestLinks:
     def teardown_method(self):
         # close browser
         self.driver.quit()
+        print("teardown initiated")
