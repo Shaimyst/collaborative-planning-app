@@ -1,48 +1,43 @@
 import os
-from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 import datetime
 import collections
 from collections import Counter
 import pytest
 
-# open browser
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.get("http://localhost/")
-
 # begin test
-def test_goto_taskspage(): # go to task page
-    tasks_link = driver.find_element_by_link_text("Tasks")
+def test_goto_taskspage(browserdriver): # go to task page
+    browserdriver.get("http://localhost/")
+    tasks_link = browserdriver.find_element_by_link_text("Tasks")
     tasks_link.click()
-    driver.implicitly_wait(10)
+    browserdriver.implicitly_wait(10)
     tasksURL = "http://localhost/#/tasks"
-    currentURL = driver.current_url
+    currentURL = browserdriver.current_url
     
     assert tasksURL == currentURL, "URLS don't match."
 
-def test_create_task(): # create new task with unique name
+def test_create_task(browserdriver): # create new task with unique name
     # go to tasks page
-    tasks_link = driver.find_element_by_link_text("Tasks")
+    tasks_link = browserdriver.find_element_by_link_text("Tasks")
     tasks_link.click()
-    driver.implicitly_wait(5)
+    browserdriver.implicitly_wait(5)
 
     # unique name generator
     date_stamp = str(datetime.datetime.now()).split('.')[0]
     unique_task_name = "task " + date_stamp
 
     # submit new task name
-    task_input_field = driver.find_element_by_xpath("/html/body/div/div[2]/form/input")
+    task_input_field = browserdriver.find_element_by_xpath("/html/body/div/div[2]/form/input")
     task_input_field.send_keys(unique_task_name)
-    submit_button = driver.find_element_by_id("task-title-submit")
+    submit_button = browserdriver.find_element_by_id("task-title-submit")
     submit_button.click()
 
-    driver.implicitly_wait(5)
+    browserdriver.implicitly_wait(5)
     
     # get task list
-    tasks_list = driver.find_elements_by_tag_name("li")
+    tasks_list = browserdriver.find_elements_by_tag_name("li")
     task_names = [x.text for x in tasks_list]
 
-    driver.implicitly_wait(5)
+    browserdriver.implicitly_wait(5)
 
     print("Unique task name: " + unique_task_name)
     print(task_names)
@@ -51,8 +46,8 @@ def test_create_task(): # create new task with unique name
     # assert unique_task_name in task_names, "New task wasn't created."
 
 
-def test_count_tasks(): # counts how many tasks have been created
-    items = driver.find_elements_by_tag_name("li")
+def test_count_tasks(browserdriver): # counts how many tasks have been created
+    items = browserdriver.find_elements_by_tag_name("li")
     count = 0
 
     for item in items:
@@ -61,19 +56,19 @@ def test_count_tasks(): # counts how many tasks have been created
 
     print("There are " + str(count) + " tasks.")
 
-def test_list(): # can print all task names
-    tasks_list = driver.find_elements_by_tag_name("li")
+def test_list(browserdriver): # can print all task names
+    tasks_list = browserdriver.find_elements_by_tag_name("li")
     task_names = [x.text for x in tasks_list]
     
     # print(task_names) # prints all task names
 
-def test_list_2(): # assert if dupes exist
+def test_list_2(browserdriver): # assert if dupes exist
 
     # attempt to create two tasks with the same name
     # check if two tasks exist with that name
     # assert only one exists
 
-    tasks_list = driver.find_elements_by_tag_name("li")
+    tasks_list = browserdriver.find_elements_by_tag_name("li")
     task_names = [x.text for x in tasks_list]
 
     tasks_count = {}
@@ -86,8 +81,5 @@ def test_list_2(): # assert if dupes exist
         else: 
             tasks_count[tn] = 1
     # print(tasks_count)
-
-    # quit browser
-    driver.quit()
 
     assert dupe_exists == False, "Duplicate task names exist."
