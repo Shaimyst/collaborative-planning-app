@@ -1,21 +1,19 @@
-import os
-import time
-from webdriver_manager import driver
+from constants import HOME_URL, TASKS_URL
 
 # begin test
 
-def test_home_link(browserdriver):
-    browserdriver.get("http://localhost/")
+def test_home_link(browserdriver): # test Home link works
+    browserdriver.get(HOME_URL)
     home_link = browserdriver.find_element_by_link_text("Home")
     home_link.click()
 
     browserdriver.implicitly_wait(10)
     print("Current home url: " + browserdriver.current_url)
     
-    assert browserdriver.current_url == "http://localhost/#/", "not home"
+    assert browserdriver.current_url == HOME_URL, "not home"
 
-def test_tasks_link(browserdriver):
-    browserdriver.get("http://localhost/")
+def test_tasks_link(browserdriver): # test tasks link works
+    browserdriver.get(HOME_URL)
     tasks_link = browserdriver.find_element_by_link_text("Tasks")
     tasks_link.click()
 
@@ -23,12 +21,10 @@ def test_tasks_link(browserdriver):
 
     print("Current tasks url: " + browserdriver.current_url)
     
-    assert browserdriver.current_url == "http://localhost/#/tasks", "wrong page"
+    assert browserdriver.current_url == TASKS_URL, "wrong page"
 
-def test_select_user(browserdriver):
-    browserdriver.get("http://localhost/")
-    home_link = browserdriver.find_element_by_link_text("Home")
-    home_link.click()
+def test_select_user(browserdriver): # test select user link works
+    browserdriver.get(HOME_URL)
     select_user_link = browserdriver.find_element_by_link_text("select user")
     select_user_link.click()
 
@@ -38,10 +34,8 @@ def test_select_user(browserdriver):
     
     assert browserdriver.current_url == "http://localhost/#/user-select", "wrong page"
 
-def test_create_user(browserdriver):
-    browserdriver.get("http://localhost/")
-    home_link = browserdriver.find_element_by_link_text("Home")
-    home_link.click()
+def test_create_user(browserdriver): # test create user link works
+    browserdriver.get(HOME_URL)
     select_user_link = browserdriver.find_element_by_link_text("create user")
     select_user_link.click()
 
@@ -52,9 +46,7 @@ def test_create_user(browserdriver):
     assert browserdriver.current_url == "http://localhost/#/user-create", "wrong page"
 
 def test_find_elements(browserdriver): # count the elements on a page
-    browserdriver.get("http://localhost/")
-    home_link = browserdriver.find_element_by_link_text("Home")
-    home_link.click()
+    browserdriver.get(HOME_URL)
 
     count = 0
 
@@ -67,9 +59,7 @@ def test_find_elements(browserdriver): # count the elements on a page
     assert count == 1, "elements count has changed"
 
 def test_find_links(browserdriver): # lists all links on home and tasks page
-    browserdriver.get("http://localhost/")
-    home_link = browserdriver.find_element_by_link_text("Home")
-    home_link.click()
+    browserdriver.get(HOME_URL)
     
     count = 0
 
