@@ -1,19 +1,18 @@
-from constants import HOME_URL, TASKS_URL
-
+import seleniumTests.constants as c
 # begin test
 
 def test_home_link(browserdriver): # test Home link works
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
     home_link = browserdriver.find_element_by_link_text("Home")
     home_link.click()
 
     browserdriver.implicitly_wait(10)
     print("Current home url: " + browserdriver.current_url)
     
-    assert browserdriver.current_url == HOME_URL, "not home"
+    assert browserdriver.current_url == c.HOME_URL, "not home"
 
 def test_tasks_link(browserdriver): # test tasks link works
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
     tasks_link = browserdriver.find_element_by_link_text("Tasks")
     tasks_link.click()
 
@@ -21,10 +20,10 @@ def test_tasks_link(browserdriver): # test tasks link works
 
     print("Current tasks url: " + browserdriver.current_url)
     
-    assert browserdriver.current_url == TASKS_URL, "wrong page"
+    assert browserdriver.current_url == c.TASKS_URL, "wrong page"
 
 def test_select_user(browserdriver): # test select user link works
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
     select_user_link = browserdriver.find_element_by_link_text("select user")
     select_user_link.click()
 
@@ -35,7 +34,7 @@ def test_select_user(browserdriver): # test select user link works
     assert browserdriver.current_url == "http://localhost/#/user-select", "wrong page"
 
 def test_create_user(browserdriver): # test create user link works
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
     select_user_link = browserdriver.find_element_by_link_text("create user")
     select_user_link.click()
 
@@ -46,7 +45,7 @@ def test_create_user(browserdriver): # test create user link works
     assert browserdriver.current_url == "http://localhost/#/user-create", "wrong page"
 
 def test_find_elements(browserdriver): # count the elements on a page
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
 
     count = 0
 
@@ -59,7 +58,7 @@ def test_find_elements(browserdriver): # count the elements on a page
     assert count == 1, "elements count has changed"
 
 def test_find_links(browserdriver): # lists all links on home and tasks page
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
     
     count = 0
 

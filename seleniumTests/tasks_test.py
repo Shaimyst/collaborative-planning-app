@@ -1,22 +1,22 @@
 import datetime
 import collections
 from collections import Counter
+import seleniumTests.constants as c
 import pytest
-from constants import HOME_URL, TASKS_URL
 
 # begin test
 def test_goto_taskspage(browserdriver): # go to task page
-    browserdriver.get(HOME_URL)
+    browserdriver.get(c.HOME_URL)
     tasks_link = browserdriver.find_element_by_link_text("Tasks")
     tasks_link.click()
     browserdriver.implicitly_wait(10)
     currentURL = browserdriver.current_url
     
-    assert TASKS_URL == currentURL, "URLS don't match."
+    assert c.TASKS_URL == currentURL, "URLS don't match."
 
 def test_create_task(browserdriver): # create new task with unique name
     # go to tasks page
-    browserdriver.get(TASKS_URL)
+    browserdriver.get(c.TASKS_URL)
 
     # unique name generator
     date_stamp = str(datetime.datetime.now()).split('.')[0]
@@ -47,7 +47,7 @@ def test_create_task(browserdriver): # create new task with unique name
 
 
 def test_count_tasks(browserdriver): # counts how many tasks have been created
-    browserdriver.get(TASKS_URL)
+    browserdriver.get(c.TASKS_URL)
     items = browserdriver.find_elements_by_tag_name("li")
     count = 0
 
@@ -87,7 +87,7 @@ def test_list_2(browserdriver): # assert if dupes exist
     assert dupe_exists == False, "Duplicate task names exist."
 
 def test_open_task(browserdriver):
-    browserdriver.get(TASKS_URL)
+    browserdriver.get(c.TASKS_URL)
 
     # unique name generator
     date_stamp = str(datetime.datetime.now()).split('.')[0]
