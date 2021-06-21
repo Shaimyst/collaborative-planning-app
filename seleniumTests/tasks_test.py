@@ -1,7 +1,7 @@
 import datetime
 import collections
 from collections import Counter
-import seleniumTests.constants as c
+import constants as c
 import pytest
 
 # begin test
