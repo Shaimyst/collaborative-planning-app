@@ -1,0 +1,216 @@
+{
+	"id": "8b0b9c49-4a77-445f-89d0-6ecefee5cecd",
+	"name": "Collaborative App",
+	"timestamp": "2021-07-06T09:48:19.327Z",
+	"collection_id": "05a6413b-06d5-4cda-9456-4ff596565bb5",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "43c223cf-c58e-422e-9be2-5ab2216759c8",
+			"name": "base url",
+			"url": "http://localhost/#/",
+			"time": 21,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				21
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2c24f7dd-c9f0-475d-9d7e-1d6bd2d2f3d5",
+			"name": "existing profiles",
+			"url": "http://localhost/#/user-select",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				7
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2fe9c0c5-300a-4885-95b4-3b8e47786183",
+			"name": "chunk vendors",
+			"url": "http://localhost/static/js/chunk-vendors.js",
+			"time": 39,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				39
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "6fca11d1-5b80-46b7-9af5-8148e7e62122",
+			"name": "fav icon",
+			"url": "http://localhost/favicon.ico",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				6
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "6c170527-b710-4ffb-b546-e705c59afa63",
+			"name": "get all users",
+			"url": "http://localhost/api/get-all-users",
+			"time": 19,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				19
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "f20ad27e-4b91-4363-919b-164e3c5b9378",
+			"name": "get all tasks",
+			"url": "http://localhost/api/get-all-tasks",
+			"time": 18,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				18
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2519ef74-87f0-4840-a850-5718c2b4d03f",
+			"name": "get task by id",
+			"url": "http://localhost/api/get-task-by-id?task_id=7ca8d83523754f70b44f5febba1c9647",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "96b4bfb7-638a-47c1-b9bb-9b7f5b9ceda2",
+			"name": "get available vote variants",
+			"url": "http://localhost/api/get-available-vote-variants",
+			"time": 13,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				13
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "b61987ce-0d1a-4353-a6b6-9710920fec89",
+			"name": "get all votes by task id",
+			"url": "http://localhost/api/get-all-votes-by-task?task_id=0881c5d349424a02b2d4e163ef9f408a",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				12
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 147,
+	"collection": {
+		"requests": [
+			{
+				"id": "43c223cf-c58e-422e-9be2-5ab2216759c8",
+				"method": "GET"
+			},
+			{
+				"id": "2c24f7dd-c9f0-475d-9d7e-1d6bd2d2f3d5",
+				"method": "GET"
+			},
+			{
+				"id": "2fe9c0c5-300a-4885-95b4-3b8e47786183",
+				"method": "GET"
+			},
+			{
+				"id": "6fca11d1-5b80-46b7-9af5-8148e7e62122",
+				"method": "GET"
+			},
+			{
+				"id": "6c170527-b710-4ffb-b546-e705c59afa63",
+				"method": "GET"
+			},
+			{
+				"id": "f20ad27e-4b91-4363-919b-164e3c5b9378",
+				"method": "GET"
+			},
+			{
+				"id": "2519ef74-87f0-4840-a850-5718c2b4d03f",
+				"method": "GET"
+			},
+			{
+				"id": "96b4bfb7-638a-47c1-b9bb-9b7f5b9ceda2",
+				"method": "GET"
+			},
+			{
+				"id": "b61987ce-0d1a-4353-a6b6-9710920fec89",
+				"method": "GET"
+			}
+		]
+	}
+}
