@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "05a6413b-06d5-4cda-9456-4ff596565bb5",
+		"name": "Collaborative App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "base url",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseURL}}",
+					"host": [
+						"{{baseURL}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "existing profiles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}user-select",
+					"host": [
+						"{{baseURL}}user-select"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "chunk vendors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/static/js/chunk-vendors.js",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"static",
+						"js",
+						"chunk-vendors.js"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fav icon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/favicon.ico",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"favicon.ico"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/get-all-users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"get-all-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/get-all-tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"get-all-tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get task by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/get-task-by-id?task_id=7ca8d83523754f70b44f5febba1c9647",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"get-task-by-id"
+					],
+					"query": [
+						{
+							"key": "task_id",
+							"value": "0881c5d349424a02b2d4e163ef9f408a",
+							"disabled": true
+						},
+						{
+							"key": "task_id",
+							"value": "7ca8d83523754f70b44f5febba1c9647"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get available vote variants",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/get-available-vote-variants",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"get-available-vote-variants"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all votes by task id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/api/get-all-votes-by-task?task_id=0881c5d349424a02b2d4e163ef9f408a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"get-all-votes-by-task"
+					],
+					"query": [
+						{
+							"key": "task_id",
+							"value": "0881c5d349424a02b2d4e163ef9f408a"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost/#/"
+		}
+	]
+}
