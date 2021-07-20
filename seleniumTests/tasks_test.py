@@ -27,8 +27,6 @@ def test_create_task(browserdriver): # create new task with unique name
     task_input_field.send_keys(unique_task_name)
     submit_button = browserdriver.find_element_by_id("task-title-submit")
     submit_button.click()
-
-    browserdriver.implicitly_wait(2)
     
     # get task list
     tasks_list = browserdriver.find_elements_by_tag_name("li")
