@@ -4,7 +4,6 @@ from collections import Counter
 import constants as c
 import pytest
 
-# begin test
 def test_goto_taskspage(browserdriver): # go to task page
     browserdriver.get(c.HOME_URL)
     tasks_link = browserdriver.find_element_by_link_text("Tasks")

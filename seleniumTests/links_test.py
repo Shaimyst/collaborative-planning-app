@@ -1,5 +1,4 @@
 import constants as c
-# begin test
 
 def test_home_link(browserdriver): # test Home link works
     browserdriver.get(c.HOME_URL)
