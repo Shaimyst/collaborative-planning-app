@@ -1,11 +1,11 @@
 from time import sleep
 import constants as c
 
-# this test is not finished
+# this test is not finished, add "test_" to def later to run with others in pytest
 # the goal is to run the same task from 2 users
 # to see if vote changes can be seen by the other in real time
 
-def test_vote_compare(browserdriver):
+def vote_compare(browserdriver):
     browserdriver.get('http://localhost/#/user-select')
     profile001 = browserdriver.find_element_by_xpath("/html/body/div/div[2]/ul/li[4]")
     profile001.click()

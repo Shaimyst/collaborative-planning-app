@@ -42,7 +42,6 @@ def test_create_task(browserdriver): # create new task with unique name
     # assert new unique name has been created 
     assert unique_task_name is not None, "new task not created"
 
-
 def test_count_tasks(browserdriver): # counts how many tasks have been created
     browserdriver.get(c.TASKS_URL)
     items = browserdriver.find_elements_by_tag_name("li")
