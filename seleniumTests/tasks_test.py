@@ -101,3 +101,24 @@ def test_open_task(browserdriver):
 # def vote_on_task(browserdriver):
 #     # open a task
 #     # select a vote on task
+
+def test_hover_change(browserdriver): # check color change when clicking a row
+    browserdriver.get(c.TASKS_URL)
+
+    # select task from list (first one?)
+    any_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
+    any_task.click()
+
+    # get css of data line
+    datarow = browserdriver.find_elements_by_class_name('data-row')
+
+    for i in datarow:
+        color1 = i.value_of_css_property("background-color")
+        i.click()
+        color2 = i.value_of_css_property("background-color")
+        print("Bg colors are:" + color1 + color2)
+    
+    # assert they are not equal
+    assert color1 is not color2
+
+# create a test that assert color change in hovering over data-row
