@@ -1,6 +1,7 @@
 import datetime
 import collections
 from collections import Counter
+from typing import NoReturn
 import constants as c
 import pytest
 
@@ -82,43 +83,54 @@ def test_list_2(browserdriver): # assert if dupes exist
 
     assert dupe_exists == False, "Duplicate task names exist."
 
-def test_open_task(browserdriver):
+
+# not finished, not finding li correctly, has been taken out of pytests for now
+def open_task(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
-    # unique name generator
-    date_stamp = str(datetime.datetime.now()).split('.')[0]
-    unique_task_name = "task " + date_stamp
+    # select first task from list
+    # first_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
+    task_list = browserdriver.find_elements_by_tag('li')
 
-    # submit new task name
-    task_input_field = browserdriver.find_element_by_xpath("/html/body/div/div[2]/form/input")
-    task_input_field.send_keys(unique_task_name)
-    submit_button = browserdriver.find_element_by_id("task-title-submit")
-    submit_button.click()
-    
-    # open that task
+    l = task_list[0]
+    l.click()
+    # first_task.click()
+
+    # get vote number (first time)
+    vote_count1 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+
     # vote for an element in that task
+    datarows = browserdriver.find_elements_by_class_name('data-row')
 
-# def vote_on_task(browserdriver):
-#     # open a task
-#     # select a vote on task
+    d = datarows[0]
+    d.click()
 
+    # get vote number (second time)
+    vote_count2= browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+    print("vote 1: " + vote_count1 + "; vote 2: " + vote_count2)
+
+    # assert class name changed to 'data-row user-voted'
+
+
+# Aug 17 - this is not yet finding the correct css element. 
+# BG color is found, but not the correct ones.
 def test_hover_change(browserdriver): # check color change when clicking a row
     browserdriver.get(c.TASKS_URL)
 
-    # select task from list (first one?)
-    any_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
-    any_task.click()
+    # select task from list
+    first_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
+    first_task.click()
 
     # get css of data line
     datarow = browserdriver.find_elements_by_class_name('data-row')
 
-    for i in datarow:
-        color1 = i.value_of_css_property("background-color")
-        i.click()
-        color2 = i.value_of_css_property("background-color")
-        print("Bg colors are:" + color1 + color2)
+    for d in datarow:
+        color1 = d.value_of_css_property("background-color")
+        d.click()
+        color2 = d.value_of_css_property("background-color")
+        print("Before click: " + color1 + "; After click: " + color2)
     
     # assert they are not equal
-    assert color1 is not color2
+    assert color1 != color2
 
 # create a test that assert color change in hovering over data-row
