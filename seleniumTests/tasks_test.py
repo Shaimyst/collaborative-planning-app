@@ -1,7 +1,7 @@
 import datetime
 import collections
+import time
 from collections import Counter
-from typing import NoReturn
 import constants as c
 import pytest
 
@@ -54,7 +54,7 @@ def test_count_tasks(browserdriver): # counts how many tasks have been created
 
     print("There are " + str(count) + " tasks.")
 
-def test_list(browserdriver): # can print all task names
+def test_list(browserdriver): # print all task names
     tasks_list = browserdriver.find_elements_by_tag_name("li")
     task_names = [x.text for x in tasks_list]
     
@@ -83,34 +83,31 @@ def test_list_2(browserdriver): # assert if dupes exist
 
     assert dupe_exists == False, "Duplicate task names exist."
 
-
-# not finished, not finding li correctly, has been taken out of pytests for now
-def open_task(browserdriver): # open first task in list and vote
+def test_open_task(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
     # select first task from list
-    # first_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
-    task_list = browserdriver.find_elements_by_tag('li')
+    first_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
+    first_task.click()
+    
+    # find and select second row vote (in case first row vote is already selected)
+    row2_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[3]')
+    row2_vote.click()
 
-    l = task_list[0]
-    l.click()
-    # first_task.click()
+    # get vote number from first row (first time)
+    vote_count1 = int(browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text)
 
-    # get vote number (first time)
-    vote_count1 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+    # find and select first row vote
+    row1_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]')
+    row1_vote.click()
 
-    # vote for an element in that task
-    datarows = browserdriver.find_elements_by_class_name('data-row')
+    # get vote number from first row (second time)
+    vote_count2 = int(browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text)
 
-    d = datarows[0]
-    d.click()
+    print("vote 1: " + str(vote_count1) + "; vote 2: " + str(vote_count2))
 
-    # get vote number (second time)
-    vote_count2= browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
-    print("vote 1: " + vote_count1 + "; vote 2: " + vote_count2)
-
-    # assert class name changed to 'data-row user-voted'
-
+    # assert vote has been changed
+    assert vote_count2 == vote_count1 + 1, "Automated test is not able to submit a vote."
 
 # Aug 17 - this is not yet finding the correct css element. 
 # BG color is found, but not the correct ones.
@@ -133,4 +130,6 @@ def test_hover_change(browserdriver): # check color change when clicking a row
     # assert they are not equal
     assert color1 != color2
 
-# create a test that assert color change in hovering over data-row
+
+
+# next test idea: assert color change in hovering over data-row
