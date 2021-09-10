@@ -85,15 +85,12 @@ def test_list_2(browserdriver): # assert if dupes exist
 
 # test isn't selecting votes
 # pytest -s seleniumTests/tasks_test.py::test_open_task 
-def test_open_task(browserdriver): # open first task in list and vote
+def test_vote_selection(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
     # select first task from list
     first_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
     first_task.click()
-    
-    # click on table to focus
-    # browserdriver.find_element_by_xpath('/html/body/div/div[2]/table').click()
 
     browserdriver.implicitly_wait(10)
 
@@ -109,26 +106,7 @@ def test_open_task(browserdriver): # open first task in list and vote
     else:
         print("Vote 2 is not selected")
 
-    # browserdriver.implicitly_wait(10)
-
-    # get vote number from first row (first time)
-    vote_count1 = int(browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text)
-
-    # find and select first row vote
-    row1_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]')
-    row1_vote.click()
-    
-    if row1_vote.is_selected():
-        print("Vote 1 is selected")
-    else:
-        print("Vote 1 is not selected")
-
-    # get vote number from first row (second time)
-    vote_count2 = int(browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text)
-
-    # assert vote has been changed
-    assert True
-    # assert vote_count2 == vote_count1 + 1, "Automated test is not able to submit a vote."
+    assert row2_vote.is_selected()
 
 # Aug 17 - this is not yet finding the correct css element. 
 # BG color is found, but not the correct ones.
