@@ -83,6 +83,7 @@ def test_list_2(browserdriver): # assert if dupes exist
 
     assert dupe_exists == False, "Duplicate task names exist."
 
+# test isn't selecting votes
 def test_open_task(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
@@ -100,11 +101,14 @@ def test_open_task(browserdriver): # open first task in list and vote
     # find and select first row vote
     row1_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]')
     row1_vote.click()
+    
+    if row1_vote.is_selected():
+        print("Vote 1 is selected")
+    else:
+        print("Vote 1 is not selected")
 
     # get vote number from first row (second time)
     vote_count2 = int(browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text)
-
-    print("vote 1: " + str(vote_count1) + "; vote 2: " + str(vote_count2))
 
     # assert vote has been changed
     assert vote_count2 == vote_count1 + 1, "Automated test is not able to submit a vote."
