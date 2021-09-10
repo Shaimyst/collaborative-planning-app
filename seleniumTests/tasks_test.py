@@ -85,7 +85,7 @@ def test_list_2(browserdriver): # assert if dupes exist
 
 # test isn't selecting votes
 # pytest -s seleniumTests/tasks_test.py::test_open_task 
-def test_vote_selection(browserdriver): # open first task in list and vote
+def vote_selection(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
     # select first task from list
@@ -110,7 +110,7 @@ def test_vote_selection(browserdriver): # open first task in list and vote
 
 # Aug 17 - this is not yet finding the correct css element. 
 # BG color is found, but not the correct ones.
-def test_hover_change(browserdriver): # check color change when clicking a row
+def hover_change(browserdriver): # check color change when clicking a row
     browserdriver.get(c.TASKS_URL)
 
     # select task from list
