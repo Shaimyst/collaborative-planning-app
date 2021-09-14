@@ -34,12 +34,18 @@ def test_open_tabs(browserdriver):
 def test_compare_votes(browserdriver):
     # select user1
     browserdriver.get('http://localhost/#/user-select')
+    sleep(2)
     browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[8]').click()
 
-    sleep(1)
+    sleep(2)
 
     # go to specific task
+    browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
+    sleep(2)
     # select vote
+    vote_1 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[1]')
+    vote_1.click()
+    sleep(2)
     # open new tab
     # select user2
     # go to same task
