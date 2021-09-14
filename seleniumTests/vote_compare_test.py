@@ -30,3 +30,19 @@ def test_open_tabs(browserdriver):
     browserdriver.switch_to.window(browserdriver.window_handles[0])
 
     sleep(1)
+
+def test_compare_votes(browserdriver):
+    # select user1
+    browserdriver.get('http://localhost/#/user-select')
+    browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[8]').click()
+
+    sleep(1)
+
+    # go to specific task
+    # select vote
+    # open new tab
+    # select user2
+    # go to same task
+    # select vote
+    # go back to main tab
+    # assert votes updated 
