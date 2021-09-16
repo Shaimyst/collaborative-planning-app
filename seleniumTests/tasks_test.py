@@ -89,27 +89,6 @@ def test_list_2(browserdriver): # assert if dupes exist
 
     assert dupe_exists == False, "Duplicate task names exist."
 
-# test isn't selecting votes, even with action chains
-# pytest -s seleniumTests/tasks_test.py::test_vote_selection 
-def test_vote_selection(browserdriver): # open first task in list and vote
-    browserdriver.get(c.TASKS_URL)
-
-    # select first task from list
-    first_task = browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]')
-    first_task.click()
-
-    browserdriver.implicitly_wait(10)
-
-    # find and select second row vote (in case first row vote is already selected)
-    row2_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[3]')
-    row4_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[5]')
-    action = ActionChains(browserdriver)
-    action.click(on_element=row2_vote).perform()
-    browserdriver.implicitly_wait(10)
-    action.click(on_element=row4_vote).perform()
-    browserdriver.implicitly_wait(10)
-    action.double_click(on_element=row4_vote).perform()
-
 # Aug 17 - this is not yet finding the correct css element. 
 # BG color is found, but not the correct ones.
 def hover_change(browserdriver): # check color change when clicking a row

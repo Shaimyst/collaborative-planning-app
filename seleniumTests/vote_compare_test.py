@@ -1,4 +1,4 @@
-from time import sleep
+import time
 import constants as c
 
 from selenium import webdriver
@@ -16,27 +16,27 @@ from selenium.webdriver.common.action_chains import ActionChains
 def test_open_tabs(browserdriver):
     # go to specific task
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
-
     browserdriver.implicitly_wait(10)
 
     # open a new tab
     browserdriver.execute_script("window.open('http://localhost/#/user-select', 'new tab')")
+    browserdriver.implicitly_wait(10)
 
-    sleep(1)
 
     # open a third tab
     browserdriver.execute_script("window.open('https://www.google.com');")
-    sleep(1)
+    browserdriver.implicitly_wait(10)
+
 
     # go to previous tab
     browserdriver.switch_to.window(browserdriver.window_handles[-1])
+    browserdriver.implicitly_wait(10)
 
-    sleep(1)
 
     # go back to main tab
     browserdriver.switch_to.window(browserdriver.window_handles[0])
+    browserdriver.implicitly_wait(10)
 
-    sleep(1)
 
 def test_compare_votes(browserdriver):
     # select user1
@@ -73,7 +73,7 @@ def test_compare_votes(browserdriver):
 
     # select user2
     browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[3]').click()
-    sleep(1)
+    time.sleep(1)
 
     # go to same task
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
@@ -90,3 +90,21 @@ def test_compare_votes(browserdriver):
     browserdriver.implicitly_wait(10)
 
     # assert votes updated 
+
+def test_vote_selection(browserdriver): # open first task in list and vote
+    browserdriver.get(c.TASKS_URL)
+
+    # select first task from list
+    browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]').click()
+    browserdriver.implicitly_wait(10)
+
+    # find and select second row vote (in case first row vote is already selected)
+    action = ActionChains(browserdriver)
+    vote2 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[3]')
+    vote4 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[5]')
+
+    action.move_to_element(vote2)
+    action.click(on_element=vote2)
+    action.move_to_element(vote4)
+    action.click(on_element=vote4)
+    action.perform()
