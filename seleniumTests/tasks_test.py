@@ -4,6 +4,12 @@ import time
 from collections import Counter
 import constants as c
 import pytest
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.common.action_chains import ActionChains
 
 def test_goto_taskspage(browserdriver): # go to task page
     browserdriver.get(c.HOME_URL)
@@ -83,9 +89,9 @@ def test_list_2(browserdriver): # assert if dupes exist
 
     assert dupe_exists == False, "Duplicate task names exist."
 
-# test isn't selecting votes
+# test isn't selecting votes, even with action chains
 # pytest -s seleniumTests/tasks_test.py::test_open_task 
-def vote_selection(browserdriver): # open first task in list and vote
+def test_vote_selection(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
     # select first task from list
@@ -96,17 +102,13 @@ def vote_selection(browserdriver): # open first task in list and vote
 
     # find and select second row vote (in case first row vote is already selected)
     row2_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[3]')
-    row2_vote.click() # one to focus
-    row2_vote.click() # one to vote
-    
+    row4_vote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[5]')
+    action = ActionChains(browserdriver)
+    action.click(on_element=row2_vote).perform()
     browserdriver.implicitly_wait(10)
-
-    if row2_vote.is_selected():
-        print("Vote 2 is selected")
-    else:
-        print("Vote 2 is not selected")
-
-    assert row2_vote.is_selected()
+    action.click(on_element=row4_vote).perform()
+    browserdriver.implicitly_wait(10)
+    action.double_click(on_element=row4_vote).perform()
 
 # Aug 17 - this is not yet finding the correct css element. 
 # BG color is found, but not the correct ones.
