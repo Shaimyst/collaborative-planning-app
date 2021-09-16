@@ -90,7 +90,7 @@ def test_list_2(browserdriver): # assert if dupes exist
     assert dupe_exists == False, "Duplicate task names exist."
 
 # test isn't selecting votes, even with action chains
-# pytest -s seleniumTests/tasks_test.py::test_open_task 
+# pytest -s seleniumTests/tasks_test.py::test_vote_selection 
 def test_vote_selection(browserdriver): # open first task in list and vote
     browserdriver.get(c.TASKS_URL)
 
