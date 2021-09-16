@@ -64,9 +64,6 @@ def test_compare_votes(browserdriver):
     action.click(on_element=vote1).perform()
     browserdriver.implicitly_wait(10)
 
-    # perform the operation
-    # action.perform()
-
     # open a new tab
     browserdriver.execute_script("window.open('http://localhost/#/user-select', 'new tab')")
     browserdriver.implicitly_wait(10)
@@ -81,8 +78,15 @@ def test_compare_votes(browserdriver):
     # go to same task
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
     browserdriver.implicitly_wait(10)
-
+    
+    # reinstantiate your ActionChains so element isn't using stale DOM
     # select vote in new tab
 
+    ActionChains(browserdriver).click(browserdriver.find_element_by_xpath("/html/body/div/div[2]/table/tr[4]")).perform()
+    browserdriver.implicitly_wait(10)
+
     # go back to main tab
+    browserdriver.switch_to.window(browserdriver.window_handles[0])
+    browserdriver.implicitly_wait(10)
+
     # assert votes updated 
