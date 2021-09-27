@@ -13,32 +13,36 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 # for now create a test that opens multiple tabs in the same window
 
-def test_open_tabs(browserdriver):
+def test_open_tabs(browserdriver): # open 3 tabs, switch between them
     # go to specific task
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
     browserdriver.implicitly_wait(10)
+    print(browserdriver.current_url)
+    assert browserdriver.current_url == "http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3", "FAIL"
 
     # open a new tab
-    browserdriver.execute_script("window.open('http://localhost/#/user-select', 'new tab')")
+    browserdriver.execute_script("window.open('http://localhost/#/user-select', 'tab2')")
+    browserdriver.switch_to.window("tab2")
     browserdriver.implicitly_wait(10)
-
+    assert browserdriver.current_url == "http://localhost/#/user-select", "FAIL"
 
     # open a third tab
-    browserdriver.execute_script("window.open('https://www.google.com');")
+    browserdriver.execute_script("window.open('https://www.google.com/', 'tab3');")
+    browserdriver.switch_to.window("tab3")
     browserdriver.implicitly_wait(10)
-
+    assert browserdriver.current_url == "https://www.google.com/", "FAIL"
 
     # go to previous tab
-    browserdriver.switch_to.window(browserdriver.window_handles[-1])
+    browserdriver.switch_to.window(browserdriver.window_handles[1])
     browserdriver.implicitly_wait(10)
-
+    assert browserdriver.current_url == "http://localhost/#/user-select", "FAIL"
 
     # go back to main tab
     browserdriver.switch_to.window(browserdriver.window_handles[0])
     browserdriver.implicitly_wait(10)
+    assert browserdriver.current_url == "http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3", "FAIL"
 
-
-def test_compare_votes(browserdriver):
+def test_compare_votes(browserdriver): # votes seem to be a step behind
     # select user1
     browserdriver.get('http://localhost/#/user-select')
     browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[8]').click()
@@ -47,22 +51,33 @@ def test_compare_votes(browserdriver):
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
     browserdriver.implicitly_wait(10)
 
+    # these are the votes when you first open the page
+    vote1_initial = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+    vote3_initial = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]/td[2]').text
+    print("Before vote, Vote1 is: " + vote1_initial)
+    print("Before vote, Vote3 is: " + vote3_initial)
+
     # select vote
     vote1 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]')
     vote3 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]')
-
+    
     action = ActionChains(browserdriver)
         # selenium has a bug where .click() does not execute on tr or td
         # work around is importing ActionChains
 
-    # this will select the vote on the third row, then the first row
-    # (in case the first row was already selected)
+    # this will select the vote on the first row, then the third row
+    # (in case the third row was already selected)
+    action.move_to_element(vote1).perform()
+    action.click(on_element = vote1).perform()
     action.move_to_element(vote3).perform()
     action.click(on_element = vote3).perform()
     browserdriver.implicitly_wait(10)
-    action.move_to_element(vote1).perform()
-    action.click(on_element=vote1).perform()
-    browserdriver.implicitly_wait(10)
+
+    # these are the votes after selecting the third row vote
+    vote1_aftervote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+    vote3_aftervote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]/td[2]').text
+    print("Click vote3, Vote1 is: " + vote1_aftervote)
+    print("Click vote3, Vote3 is: " + vote3_aftervote)
 
     # open a new tab
     browserdriver.execute_script("window.open('http://localhost/#/user-select', 'new tab')")
@@ -73,38 +88,29 @@ def test_compare_votes(browserdriver):
 
     # select user2
     browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[3]').click()
-    time.sleep(1)
+    time.sleep(2)
 
     # go to same task
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
     browserdriver.implicitly_wait(10)
-    
+
+    vote1_user2 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+    vote3_user2 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]/td[2]').text
+    print("User 2, Vote1 is: " + vote1_user2)
+    print("User 2, Vote3 is: " + vote3_user2)
+
+    print("User 1 sees: " + vote3_aftervote + "User 2 sees: " + vote3_user2)
+
+
     # reinstantiate your ActionChains so element isn't using stale DOM
     # select vote in new tab
 
     ActionChains(browserdriver).click(browserdriver.find_element_by_xpath("/html/body/div/div[2]/table/tr[4]")).perform()
     browserdriver.implicitly_wait(10)
+    time.sleep(2)
 
     # go back to main tab
     browserdriver.switch_to.window(browserdriver.window_handles[0])
     browserdriver.implicitly_wait(10)
 
     # assert votes updated 
-
-def test_vote_selection(browserdriver): # open first task in list and vote
-    browserdriver.get(c.TASKS_URL)
-
-    # select first task from list
-    browserdriver.find_element_by_xpath('/html/body/div/div[2]/ul/li[1]').click()
-    browserdriver.implicitly_wait(10)
-
-    # find and select second row vote (in case first row vote is already selected)
-    action = ActionChains(browserdriver)
-    vote2 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[3]')
-    vote4 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[5]')
-
-    action.move_to_element(vote2)
-    action.click(on_element=vote2)
-    action.move_to_element(vote4)
-    action.click(on_element=vote4)
-    action.perform()
