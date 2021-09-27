@@ -52,15 +52,19 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     browserdriver.implicitly_wait(10)
 
     # these are the votes when you first open the page
-    vote1_initial = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
-    vote3_initial = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]/td[2]').text
+    # old code:
+    # vote1_initial = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
+    vote1_initial = get_vote_count(browserdriver, 2)
+    vote3_initial = get_vote_count(browserdriver, 4)
     print("Before vote, Vote1 is: " + vote1_initial)
     print("Before vote, Vote3 is: " + vote3_initial)
 
     # select vote
-    vote1 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]')
-    vote3 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]')
-    
+    # old code:
+    # vote1 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]')
+    vote1 = get_vote_row_elem(browserdriver, 2)
+    vote3 = get_vote_row_elem(browserdriver, 4)
+
     action = ActionChains(browserdriver)
         # selenium has a bug where .click() does not execute on tr or td
         # work around is importing ActionChains
@@ -74,8 +78,9 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     browserdriver.implicitly_wait(10)
 
     # these are the votes after selecting the third row vote
-    vote1_aftervote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
-    vote3_aftervote = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]/td[2]').text
+    vote1_aftervote = get_vote_count(browserdriver, 2)
+    vote3_aftervote = get_vote_count(browserdriver, 4)
+    browserdriver.implicitly_wait(10)
     print("Click vote3, Vote1 is: " + vote1_aftervote)
     print("Click vote3, Vote3 is: " + vote3_aftervote)
 
@@ -94,18 +99,19 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
     browserdriver.implicitly_wait(10)
 
-    vote1_user2 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[2]/td[2]').text
-    vote3_user2 = browserdriver.find_element_by_xpath('/html/body/div/div[2]/table/tr[4]/td[2]').text
+    vote1_user2 = get_vote_count(browserdriver, 2)
+    vote3_user2 = get_vote_count(browserdriver, 4)
+    browserdriver.implicitly_wait(10)
     print("User 2, Vote1 is: " + vote1_user2)
     print("User 2, Vote3 is: " + vote3_user2)
 
-    print("User 1 sees: " + vote3_aftervote + "User 2 sees: " + vote3_user2)
+    print("User 1 sees: " + vote3_aftervote + " User 2 sees: " + vote3_user2)
 
 
     # reinstantiate your ActionChains so element isn't using stale DOM
     # select vote in new tab
 
-    ActionChains(browserdriver).click(browserdriver.find_element_by_xpath("/html/body/div/div[2]/table/tr[4]")).perform()
+    ActionChains(browserdriver).click(get_vote_row_elem(browserdriver, 4)).perform()
     browserdriver.implicitly_wait(10)
     time.sleep(2)
 
@@ -114,3 +120,14 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     browserdriver.implicitly_wait(10)
 
     # assert votes updated 
+
+
+# helpers
+
+def get_vote_row_elem(browserdriver, row_num):
+    x_path = '/html/body/div/div[2]/table/tr[' + str(row_num) + ']'
+    return browserdriver.find_element_by_xpath(x_path)
+
+def get_vote_count(browserdriver, row_num):
+    x_path = '/html/body/div/div[2]/table/tr[' + str(row_num) + ']/td[2]'
+    return browserdriver.find_element_by_xpath(x_path).text
