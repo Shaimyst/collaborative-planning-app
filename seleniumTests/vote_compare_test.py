@@ -99,14 +99,6 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
     browserdriver.implicitly_wait(10)
 
-    vote1_user2 = get_vote_count(browserdriver, 2)
-    vote3_user2 = get_vote_count(browserdriver, 4)
-    browserdriver.implicitly_wait(10)
-    print("User 2, Vote1 is: " + vote1_user2)
-    print("User 2, Vote3 is: " + vote3_user2)
-
-    print("User 1 sees: " + vote3_aftervote + " User 2 sees: " + vote3_user2)
-
 
     # reinstantiate your ActionChains so element isn't using stale DOM
     # select vote in new tab
@@ -115,9 +107,22 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     browserdriver.implicitly_wait(10)
     time.sleep(2)
 
+    vote1_user2 = get_vote_count(browserdriver, 2)
+    vote3_user2 = get_vote_count(browserdriver, 4)
+    browserdriver.implicitly_wait(10)
+    print("User 2, Vote1 is: " + vote1_user2)
+    print("User 2, Vote3 is: " + vote3_user2)
+
+    print("User 1 sees: " + vote3_aftervote + " User 2 sees: " + vote3_user2)
+
     # go back to main tab
     browserdriver.switch_to.window(browserdriver.window_handles[0])
     browserdriver.implicitly_wait(10)
+
+    vote1_final = get_vote_count(browserdriver, 2)
+    vote3_final = get_vote_count(browserdriver, 4)
+    print("Final User1 view: " + vote1_final)
+    print("Final User1 view: " + vote3_final)
 
     # assert votes updated 
 
