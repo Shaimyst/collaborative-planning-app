@@ -73,6 +73,8 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
     # (in case the third row was already selected)
     action.move_to_element(vote1).perform()
     action.click(on_element = vote1).perform()
+    browserdriver.implicitly_wait(10)
+
     action.move_to_element(vote3).perform()
     action.click(on_element = vote3).perform()
     browserdriver.implicitly_wait(10)
@@ -121,8 +123,8 @@ def test_compare_votes(browserdriver): # votes seem to be a step behind
 
     vote1_final = get_vote_count(browserdriver, 2)
     vote3_final = get_vote_count(browserdriver, 4)
-    print("Final User1 view: " + vote1_final)
-    print("Final User1 view: " + vote3_final)
+    print("Final User1 view, vote 1: " + vote1_final)
+    print("Final User1 view, vote 3: " + vote3_final)
 
     # assert votes updated 
 
