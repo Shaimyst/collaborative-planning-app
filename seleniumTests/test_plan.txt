@@ -1,0 +1,36 @@
+TEST PLAN:
+List of tests created/to be created
+
+- verify links
+    - Home page
+        - Home
+        - Tasks
+        - create user
+        - select user
+    - Tasks page
+        - Home
+        - Tasks
+        - Create new button
+        - Task links
+    - create user page
+        - Home
+        - Tasks
+        - Submit button
+    - select user page
+        - Home
+        - Tasks
+        - task links
+    - task page
+        - Home
+        - Tasks
+- select User test: verify selected user shows on the right siden after navigating to tasks page
+- select tasks test: the correct tasks is navigated to after being selected
+- create new user
+- create new task
+- duplicates
+    - can duplicate users be created
+    - can duplicate tasks be created
+- vote counts
+    - do vote clicks work
+    - can changes be viewed in real time by 2 diff users
+- test web timing

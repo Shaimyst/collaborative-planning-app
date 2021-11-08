@@ -28,4 +28,5 @@ def test_frontend(browserdriver):
 
     print("Front End: %s" % frontendPerformance)
 
+
     assert frontendPerformance < 500, "Frontend has long loading time."   
