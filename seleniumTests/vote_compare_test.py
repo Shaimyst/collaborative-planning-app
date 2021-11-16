@@ -11,8 +11,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 # the goal is to run the same task from 2 users
 # to see if vote changes can be seen by the other in real time
 
-# for now create a test that opens multiple tabs in the same window
-
 def test_open_tabs(browserdriver): # open 3 tabs, switch between them
     # go to specific task
     browserdriver.get('http://localhost/#/task/061c24b959994ba3be05fcd51e7cf1a3')
@@ -135,6 +133,7 @@ def get_vote_row_elem(browserdriver, row_num):
     x_path = '/html/body/div/div[2]/table/tr[' + str(row_num) + ']'
     return browserdriver.find_element_by_xpath(x_path)
 
+# get the vote count text only
 def get_vote_count(browserdriver, row_num):
     x_path = '/html/body/div/div[2]/table/tr[' + str(row_num) + ']/td[2]'
     return browserdriver.find_element_by_xpath(x_path).text
